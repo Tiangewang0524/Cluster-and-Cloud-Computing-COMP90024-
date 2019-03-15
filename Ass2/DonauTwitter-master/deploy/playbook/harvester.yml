@@ -1,0 +1,49 @@
+#This file is developed by Team 18 of COMP90024 of The University of Melbourne, under Apache Licence(see LICENCE).
+#Researched Cities: Victoria, AU
+#Team member - id:
+#Yixiong Ding  671499     
+#Yijie Mei     861351
+#Tiange Wuang  903588
+#Wuang Shen    716090
+#Ruifeng Luo   686141
+---
+- name: Install and run havester
+  hosts: db
+  remote_user: ubuntu
+  become: yes
+  tasks:
+  - name: Install pip
+    become: yes
+    apt:
+      name: python-pip
+      state: present
+
+  - name: Install TwitterAPI, analysis tools and couchdb
+    become: yes
+    pip:
+      name: TwitterAPI couchdb nltk vaderSentiment
+
+  - name: Copy private key of the GitHub account
+    copy:
+      src: /home/menooker/github.key
+      dest: /home/ubuntu/.ssh/id_rsa     
+      mode: 0700
+      group: ubuntu
+      owner: ubuntu
+  
+  - name: Fetch the source code of the harvester
+    git:
+      repo: git@github.com:Menooker/DonauTwitter
+      dest: /home/ubuntu/DonauTwitter
+      accept_hostkey: yes
+
+  - name: Copy harvester config file
+    copy:
+      src: ../../crawler/config.json
+      dest: /home/ubuntu/config.json
+
+  - name: Run the harvester in Search mode
+    shell: nohup python /home/ubuntu/DonauTwitter/crawler/TwitterCrawler.py f > /home/ubuntu/f.log 2>&1 &
+
+  - name: Run the harvester in Stream mode
+    shell: nohup python /home/ubuntu/DonauTwitter/crawler/TwitterCrawler.py s > /home/ubuntu/s.log 2>&1 &

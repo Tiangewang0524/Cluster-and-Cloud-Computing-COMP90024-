@@ -1,0 +1,11 @@
+{
+	"consumer_key" : "XXXXXXXXXXXXX",
+	"consumer_secret" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	"access_token_key" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	"access_token_secret" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	"db_url" : "http://localhost:5984",
+	"db_name" : "tweets",
+	"keywords" : ["japan","china"],
+	"locations" : "112.5,-37.5,154.1,-12.8",
+	"geocode" : "-37.3,144.2,250km"
+}

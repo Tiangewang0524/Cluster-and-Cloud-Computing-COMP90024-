@@ -1,0 +1,54 @@
+#This file is developed by Team 18 of COMP90024 of The University of Melbourne, under Apache Licence(see LICENCE).
+#Researched Cities: Victoria, AU
+#Team member - id:
+#Yixiong Ding  671499     
+#Yijie Mei     861351
+#Tiange Wuang  903588
+#Wuang Shen    716090
+#Ruifeng Luo   686141
+---
+- name: basic installation - Install vim and curl. Format volumn and mount it.
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+  - name: apt-get update
+    apt: update_cache=yes
+
+  - name: Install vim and curl
+    apt: name={{item}}
+    with_items:
+        - vim
+        - curl
+
+  - name: Format volume using ext4
+    filesystem:
+      fstype: ext4
+      dev: /dev/vdc 
+  
+  - name: Create the directory
+    file:
+      path: /extra
+      state: directory
+
+  - name: Mount
+    mount:
+      name: /extra
+      src: /dev/vdc
+      fstype: ext4
+      state: mounted
+
+  - name: Change the permission of the mount directory
+    file:
+      path: /extra
+      state: directory
+      mode: 0777
+      owner: ubuntu
+
+
+
+#  - name: Change the password
+#    shell: "{{item}}"
+#    with_items:
+#      - echo -e "cqmygysdss\ncqmygysdss" | sudo passwd ubuntu

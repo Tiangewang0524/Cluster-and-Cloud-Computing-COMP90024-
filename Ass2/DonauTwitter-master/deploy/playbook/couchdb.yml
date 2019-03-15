@@ -1,0 +1,44 @@
+#This file is developed by Team 18 of COMP90024 of The University of Melbourne, under Apache Licence(see LICENCE).
+#Researched Cities: Victoria, AU
+#Team member - id:
+#Yixiong Ding  671499     
+#Yijie Mei     861351
+#Tiange Wuang  903588
+#Wuang Shen    716090
+#Ruifeng Luo   686141
+---
+- name: Install CouchDB
+  hosts: db
+  remote_user: ubuntu
+  become: yes
+  tasks:
+  - name: Install docker
+    apt: 
+      name: docker.io
+      state: present
+  - name: Copy the install script
+    copy:
+        src: ../submodules/deploy_couchdb.sh
+        dest: /home/ubuntu/deploy_couchdb.sh
+
+  - name: Install couchdb, setup db account, bind 0.0.0.0, remove default db
+    command: "{{ item }}"
+    with_items:
+      - sh /home/ubuntu/deploy_couchdb.sh {{ ansible_eth0.ipv4.address }}
+
+  - name: Copy the cluster installation script on master node
+    when: ansible_eth0.ipv4.address == groups['db'][0]
+    copy:
+          src: ../submodules/deploy_couchdb_cluster.sh
+          dest: /home/ubuntu/deploy_couchdb_cluster.sh
+
+  - name: Setup cluster on master node
+    when: ansible_eth0.ipv4.address == groups['db'][0]
+    command: "{{ item }}"
+    with_items:
+          - bash /home/ubuntu/deploy_couchdb_cluster.sh {{ groups['db'] | join(' ') }}
+
+
+
+
+
