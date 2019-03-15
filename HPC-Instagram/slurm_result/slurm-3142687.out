@@ -1,0 +1,37 @@
+Run the task with 2 node and 8 core
+
+The total number of posts in each grid box:
+
+C2 has 175969 posts
+B2 has 22797 posts
+C3 has 18293 posts
+B3 has 6420 posts
+C4 has 4234 posts
+B1 has 3311 posts
+C5 has 2638 posts
+D3 has 2467 posts
+D4 has 1923 posts
+C1 has 1595 posts
+B4 has 1069 posts
+D5 has 783 posts
+A3 has 497 posts
+A2 has 479 posts
+A1 has 262 posts
+A4 has 133 posts
+
+The total number of posts in each row:
+
+Row C has 202729 posts
+Row B has 33597 posts
+Row D has 5173 posts
+Row A has 1371 posts
+
+The total number of posts in each column:
+
+Column 2 has 199245 posts
+Column 3 has 27677 posts
+Column 4 has 7359 posts
+Column 1 has 5168 posts
+Column 5 has 3421 posts
+
+The total time is: 153.46628
